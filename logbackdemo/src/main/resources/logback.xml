@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <property name="USER_HOME" value="/home/sebastien" />
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" />
+
     <appender name="STDOUT1" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern> %-5level %logger{36} - %msg%n</pattern>
+            <pattern>${USER_HOME} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -12,12 +15,30 @@
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>myApp.log</file>
+        <file>.${USER_HOME}/myApp-${bySecond}.log</file>
         <encoder>
             <pattern>%date %level [%thread] %logger{10}
                 [%file:%line] %msg%n
             </pattern>
         </encoder>
+    </appender>
+    <appender name="FILE1" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>testFile.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10}
+                [%file:%line] %msg%n
+            </pattern>
+        </encoder>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>testFile.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>1KB</maxFileSize>
+        </triggeringPolicy>
     </appender>
 
     <logger name="demo.Demo1" level="WARN">
@@ -25,8 +46,7 @@
     </logger>
 
     <root level="trace">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
+x        <appender-ref ref="FILE1" />
     </root>
 
 </configuration>

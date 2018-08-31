@@ -9,11 +9,13 @@ public class Demo1 {
 
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(Demo1.class);
-        logger.error("Hello world.");
-        logger.warn("Hello world.");
-        logger.info("Hello world.");
-        logger.debug("Hello world.");
-        logger.trace("Hello world.");
+        for(int i = 0; i < 100000; i++) {
+            logger.error("Hello world.");
+            logger.warn("Hello world.");
+            logger.info("Hello world.");
+            logger.debug("Hello world.");
+            logger.trace("Hello world.");
+        }
 
         LoggerContext lc = (LoggerContext)LoggerFactory.getILoggerFactory();
         StatusPrinter.print(lc);
