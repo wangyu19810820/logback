@@ -1,0 +1,6 @@
+<pattern>
+    {
+    "appName": "yourappname",
+    "appVersion": "1.0"
+    }
+</pattern>
